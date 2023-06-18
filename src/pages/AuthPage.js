@@ -61,7 +61,7 @@ const ConfirmPasswordInputRef = useRef();
       .then((data) => {
         authCtx.login(data.idToken);
         // console.log('hi')
-         history.replace('/');
+         history.replace('/welcome');
       })
       .catch((err) => {
         alert(err.message);
