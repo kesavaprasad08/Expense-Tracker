@@ -10,6 +10,7 @@ import ProductsPage from './pages/ProductsPage';
 import AuthContext from './store/auth-context';
 import WelcomePage from './pages/WelcomePage';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
+import CompleteProfilePage from './pages/CompleteProfilePage';
 
 function App() {
 
@@ -34,9 +35,12 @@ function App() {
         {isLoggedIn && (<Route path='/welcome' exact>
           <WelcomePage />
         </Route>)}
+        {isLoggedIn &&(<Route path='/completeprofile' exact>
+          <CompleteProfilePage/>
+        </Route>)}
         <Route path='*'>
           <Redirect to='/'>
-            
+
           </Redirect>
         </Route>
     <div className="app">
