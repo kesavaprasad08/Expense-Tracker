@@ -12,6 +12,7 @@ import WelcomePage from './pages/WelcomePage';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import CompleteProfilePage from './pages/CompleteProfilePage';
 import ForgotPasswordPage from './pages/ForgotPassword';
+import DayToDayExpenses from './pages/Expense/DayToDayExpenses';
 
 function App() {
 
@@ -41,6 +42,9 @@ function App() {
         </Route>)}
         {isLoggedIn &&(<Route path='/completeprofile' exact>
           <CompleteProfilePage/>
+        </Route>)}
+        {isLoggedIn &&(<Route path='/expense' exact>
+          <DayToDayExpenses/>
         </Route>)}
         <Route path='*'>
           <Redirect to='/'>

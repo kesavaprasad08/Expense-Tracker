@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import classes from "./MainNavigation.module.css";
@@ -14,28 +14,26 @@ const MainNavigation = () => {
 
   const logOutHandler = () => {
     authCtx.logout();
-    history.replace('/auth')
+    history.replace("/auth");
   };
 
   return (
     <header className={classes.header}>
-        
-        
       <Link to="/">
         <div className={classes.logo}>My Web Link</div>
       </Link>
       <nav>
         <ul>
           
-            <>
             <li>
               <Link to="/">Home</Link>
             </li>
-            
-        </>
-         
+            {isLoggedIn && <li>
+              <Link to="/expense">Expense Tracker</Link>
+            </li>}
           
-            <>  
+
+          
             <li>
               <Link to="/products">Products</Link>
             </li>
@@ -43,17 +41,14 @@ const MainNavigation = () => {
               <Link to="/aboutus">About us</Link>
             </li>
             <li>
-            <Link to="/auth">Login</Link>
-        </li>
-            
-            
-            </>
+              <Link to="/auth">Login</Link>
+            </li>
           
-           {isLoggedIn && ( 
-             <li>
+          {isLoggedIn && (
+            <li>
               <button onClick={logOutHandler}>Logout</button>
-            </li> 
-          )} 
+            </li>
+          )}
         </ul>
       </nav>
     </header>
