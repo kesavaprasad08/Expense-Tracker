@@ -1,5 +1,6 @@
 import { useRef , useContext } from "react";
 import ExpenseContext from "../../store/expense-context";
+import ListOfExpenses from "./ListOfExpenses";
 
 const DayToDayExpenses = () => {
     // console.log('rendered')
@@ -28,7 +29,14 @@ expCntx.addExpense(obj);
             console.log(error);
         }
     }
-    const expenseItems = expCntx.expenses.map((exp)=><p key={exp.id}>{exp.amount}-{exp.description}-{exp.category}</p>)
+    const expenseItems = expCntx.expenses.map((exp)=>
+    // <p key={exp.id}>
+    //     {exp.amount}-{exp.description}-{exp.category}
+    //     </p>
+     
+    <ListOfExpenses key={exp.id} id={exp.id} amount={exp.amount} description={exp.description} category={exp.category} />
+    
+        )
     return<>
     <form onSubmit={submitHandler}>
         <h2>Add New Expense</h2>
@@ -48,7 +56,9 @@ expCntx.addExpense(obj);
     </form>
     <hr/>
     <h2>List of Expenses</h2>
+    <ul>
     {expenseItems}
+    </ul>
     </>
 }
 

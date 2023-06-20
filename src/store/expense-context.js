@@ -4,11 +4,13 @@ import axios from "axios";
 const ExpenseContext = React.createContext({
   expenses: [],
   addExpense: (expense) => {},
+  deleteExpense: (id) => {},
+  editExpense: (expense) => {},
 });
 
 export const ExpenseContextProvider = (props) => {
   const [expenses, setExpenses] = useState([]);
-  const [changes,setChanges]=useState(true);
+  const [changes, setChanges] = useState(true);
 
   useEffect(() => {
     axios
@@ -29,7 +31,7 @@ export const ExpenseContextProvider = (props) => {
         }
         setExpenses(loadedExpenses);
       });
-  },[changes]);
+  }, [changes]);
 
   const addExpenseHandler = (expense) => {
     const url =
@@ -39,31 +41,40 @@ export const ExpenseContextProvider = (props) => {
       .then((res) => {
         setChanges(!changes);
         // console.log(res);
-
       })
       .catch((err) => {
         console.log(err);
       });
-    // const updatedExpenses = [...expenses, expense];
-    // setExpenses(updatedExpenses);
-    //     fetch('https://authentication-bd40d-default-rtdb.firebaseio.com/expenses',{
-    //     method: "POST",
-    //     body: JSON.stringify(expense),
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     }
-    // }
-    //   )
-    //   .then((res)=>{
-    //     console.log(res);
-    //   })
-    //   .catch((Err)=>{
-    //     console.log(Err);
-    //   })
+  };
+  const deleteExpenseHandler = (id) => {
+    axios
+      .delete(
+        `https://authentication-bd40d-default-rtdb.firebaseio.com/expenses/${id}.json`
+      )
+      .then((res) => {
+        console.log("Expense successfully deleted");
+        setChanges(!changes);
+      });
+  };
+  const editExpenseHandler = (obj) => {
+    axios
+      .put(
+        `https://authentication-bd40d-default-rtdb.firebaseio.com/expenses/${obj.id}.json`,
+        obj
+      )
+      .then((res) => {
+        console.log(res);
+        setChanges(!changes);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
   const contextValue = {
     expenses: expenses,
     addExpense: addExpenseHandler,
+    deleteExpense: deleteExpenseHandler,
+    editExpense: editExpenseHandler,
   };
 
   return (
