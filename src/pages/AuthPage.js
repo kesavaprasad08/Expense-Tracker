@@ -1,4 +1,5 @@
 import { useState, useRef,useContext } from "react";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 import {useHistory} from 'react-router-dom'
 
@@ -93,7 +94,9 @@ const ConfirmPasswordInputRef = useRef();
           /></>)}
         </div>
         <div className={classes.actions}>
+        {isLogin && <Link to='/forgot-password'>Forgot Password?</Link>}
           {isLoading ? <p>Sending Request...</p> : <button>Submit</button>}
+          
           <button
             type="button"
             className={classes.toggle}
@@ -101,6 +104,7 @@ const ConfirmPasswordInputRef = useRef();
           >
             {isLogin ? "Create new account" : "Have an Account ? Login"}
           </button>
+          
         </div>
       </form>
     </section>

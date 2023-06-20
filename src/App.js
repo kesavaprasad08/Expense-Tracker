@@ -11,6 +11,7 @@ import AuthContext from './store/auth-context';
 import WelcomePage from './pages/WelcomePage';
 import { Redirect } from 'react-router-dom/cjs/react-router-dom.min';
 import CompleteProfilePage from './pages/CompleteProfilePage';
+import ForgotPasswordPage from './pages/ForgotPassword';
 
 function App() {
 
@@ -31,6 +32,9 @@ function App() {
         </Route>
         <Route path='/products' exact>
           <ProductsPage />
+        </Route>
+        <Route path='/forgot-password' exact>
+          <ForgotPasswordPage />
         </Route>
         {isLoggedIn && (<Route path='/welcome' exact>
           <WelcomePage />
