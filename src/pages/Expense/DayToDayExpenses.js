@@ -2,6 +2,7 @@ import { useRef , useContext } from "react";
 import ExpenseContext from "../../store/expense-context";
 
 const DayToDayExpenses = () => {
+    // console.log('rendered')
     const expCntx = useContext(ExpenseContext);
     const amountRef = useRef();
     const descRef = useRef();
@@ -27,8 +28,7 @@ expCntx.addExpense(obj);
             console.log(error);
         }
     }
-
-    const expenseItems = expCntx.expenses.map((exp)=><p key={exp.key}>{exp.amount}-{exp.description}-{exp.category}</p>)
+    const expenseItems = expCntx.expenses.map((exp)=><p key={exp.id}>{exp.amount}-{exp.description}-{exp.category}</p>)
     return<>
     <form onSubmit={submitHandler}>
         <h2>Add New Expense</h2>
