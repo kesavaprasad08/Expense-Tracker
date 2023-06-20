@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import AuthContext from "../store/auth-context";
 
 const CompleteProfilePage = () => {
@@ -7,6 +7,27 @@ const CompleteProfilePage = () => {
 
   const authCtx = useContext(AuthContext);
 
+  useEffect(() => {
+    const url =
+      "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCBIutYQxemEvfAy3NV3Cxty0b_12wNrU0";
+    const requestBody = {
+      idToken: authCtx.token,
+    };
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        fullNameInputRef.current.value = data.users[0].displayName;
+        profilePhotoUrlRef.current.value = data.users[0].photoUrl;
+      });
+  }, [authCtx.token]);
   const submitHandler = (e) => {
     e.preventDefault();
     const name = fullNameInputRef.current.value;
@@ -43,7 +64,6 @@ const CompleteProfilePage = () => {
         console.log(error);
       });
   };
-
   return (
     <>
       <button>Cancel</button>
