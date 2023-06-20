@@ -24,6 +24,7 @@ const CompleteProfilePage = () => {
         return res.json();
       })
       .then((data) => {
+        console.log(data)
         fullNameInputRef.current.value = data.users[0].displayName;
         profilePhotoUrlRef.current.value = data.users[0].photoUrl;
       });
@@ -75,8 +76,11 @@ const CompleteProfilePage = () => {
         <label htmlFor="profilePhotoUrl">Profile Photo Url:</label>
         <input ref={profilePhotoUrlRef}></input>
         <button>Update</button>
+        
       </form>
+      
       <hr />
+      
     </>
   );
 };
