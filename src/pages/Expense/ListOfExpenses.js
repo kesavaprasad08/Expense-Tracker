@@ -1,40 +1,52 @@
-// import axios from "axios";
-import ExpenseContext from "../../store/expense-context";
-import { useContext, useState, useRef } from "react";
+import { useState, useRef } from "react";
+import axios from "axios";
 
 const ListOfExpenses = (props) => {
   const [isEditing, setEditing] = useState(false);
-  const expenseContext = useContext(ExpenseContext);
   const amountRef = useRef();
   const descRef = useRef();
   const categoryRef = useRef();
 
   const deleteHandler = () => {
-    expenseContext.deleteExpense(props.id);
+    axios
+      .delete(
+        `https://authentication-bd40d-default-rtdb.firebaseio.com/expenses/${props.id}.json`
+      )
+      .then((res) => {
+        console.log("Expense successfully deleted");
+        props.onUpdate();
+      });
   };
   const EditHandler = () => {
     setEditing(true);
-//     console.log("edit");
-//     amountRef.current.value=props.amount;
-//     descRef.current.value = props.description;
-// categoryRef.current.value = props.category;
-
   };
   const cancelHandler = () => {
     setEditing(false);
   };
 
- const EditOnDatabase = (e) =>{
+  const EditOnDatabase = (e) => {
     e.preventDefault();
-    const obj ={
-        id:props.id,
-        amount:amountRef.current.value,
-        description:descRef.current.value,
-        category:categoryRef.current.value
-    }
-    expenseContext.editExpense(obj);
+    const obj = {
+      id: props.id,
+      amount: amountRef.current.value,
+      description: descRef.current.value,
+      category: categoryRef.current.value,
+    };
+
+    axios
+      .put(
+        `https://authentication-bd40d-default-rtdb.firebaseio.com/expenses/${obj.id}.json`,
+        obj
+      )
+      .then((res) => {
+        props.onUpdate();
+      })
+      .catch((res) => {
+        console.log(res);
+      });
+
     setEditing(false);
- }
+  };
 
   return (
     <>
