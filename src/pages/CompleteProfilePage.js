@@ -1,17 +1,17 @@
-import { useContext, useEffect, useRef } from "react";
-import AuthContext from "../store/auth-context";
+import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 
 const CompleteProfilePage = () => {
   const fullNameInputRef = useRef();
   const profilePhotoUrlRef = useRef();
 
-  const authCtx = useContext(AuthContext);
+  const token = useSelector((state) => state.auth.token);
 
   useEffect(() => {
     const url =
       "https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyCBIutYQxemEvfAy3NV3Cxty0b_12wNrU0";
     const requestBody = {
-      idToken: authCtx.token,
+      idToken: token,
     };
     fetch(url, {
       method: "POST",
@@ -24,16 +24,16 @@ const CompleteProfilePage = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data)
+        console.log(data);
         fullNameInputRef.current.value = data.users[0].displayName;
         profilePhotoUrlRef.current.value = data.users[0].photoUrl;
       });
-  }, [authCtx.token]);
+  }, [token]);
   const submitHandler = (e) => {
     e.preventDefault();
     const name = fullNameInputRef.current.value;
     const imgUrl = profilePhotoUrlRef.current.value;
-    const idToken = authCtx.token; // get the Firebase Auth ID token for the user
+    const idToken = token; // get the Firebase Auth ID token for the user
     const url =
       "https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCBIutYQxemEvfAy3NV3Cxty0b_12wNrU0";
     const requestBody = {
@@ -76,11 +76,9 @@ const CompleteProfilePage = () => {
         <label htmlFor="profilePhotoUrl">Profile Photo Url:</label>
         <input ref={profilePhotoUrlRef}></input>
         <button>Update</button>
-        
       </form>
-      
+
       <hr />
-      
     </>
   );
 };

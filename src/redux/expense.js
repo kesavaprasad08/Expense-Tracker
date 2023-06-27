@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialExpenseState = {
   expenses: [],
   total:0,
+  isPremiumSubscribed:false,
 };
 
 const expenseSlice = createSlice({
@@ -17,6 +18,9 @@ const expenseSlice = createSlice({
     },
     updateTotal(state,action){
       state.total =action.payload;
+    },
+    updatePremiumSubscription(state){
+      state.isPremiumSubscribed=true;
     }
   },
 });

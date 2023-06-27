@@ -11,6 +11,8 @@ const DayToDayExpenses = () => {
   const [showPremium, setPremium] = useState(false);
 
   const expe = useSelector((state) => state.expense.expenses);
+  const isPremium = useSelector((state)=> state.expense.isPremiumSubscribed);
+
 
   const dispatch = useDispatch();
   const amountRef = useRef();
@@ -88,7 +90,7 @@ const DayToDayExpenses = () => {
         dispatch(expenseActions.updateTotal(total));
         dispatch(expenseActions.addExpensesToState(loadedExpenses));
 
-        if (total > 10000) {
+        if (total > 10000 && !isPremium) {
           setPremium(true);
         }
         else{
@@ -97,11 +99,16 @@ const DayToDayExpenses = () => {
       } catch (err) {}
     };
     gettingData();
-  }, [changes, dispatch]);
+  }, [changes, dispatch,setPremium,isPremium]);
 
   const changeHandler = () => {
     setaChanges(!changes);
   };
+
+  const activatePremiumHandler=() => {
+    dispatch(expenseActions.updatePremiumSubscription());
+    
+  }
   const expenseItems = expe.map((exp) => (
     <ListOfExpenses
       key={exp.id}
@@ -134,7 +141,7 @@ const totalAmount =useSelector((state)=>state.expense.total)
       <h2>List of Expenses</h2>
       <ul>{expenseItems}</ul>
       <h1>Total Rs.{totalAmount}</h1>
-      {showPremium && <button>Activate Premium </button>}
+      {showPremium && <button onClick={activatePremiumHandler}>Activate Premium </button>}
     </>
   );
 };
