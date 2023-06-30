@@ -24,7 +24,7 @@ const CompleteProfilePage = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         fullNameInputRef.current.value = data.users[0].displayName;
         profilePhotoUrlRef.current.value = data.users[0].photoUrl;
       });
@@ -67,7 +67,6 @@ const CompleteProfilePage = () => {
   };
   return (
     <>
-      <button>Cancel</button>
       <h1>Contact Details</h1>
 
       <form onSubmit={submitHandler}>

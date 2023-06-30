@@ -1,0 +1,37 @@
+.expense{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: .1px solid wheat;
+    padding: .5rem ;
+    /* margin: 1rem 0; */
+}
+.expense button {
+    font: inherit;
+    font-weight: bold;
+    font-size: 1rem;
+    color: white;
+    border: 1px solid white;
+    width: 4rem;
+    text-align: center;
+    border-radius: 6px;
+    background-color: transparent;
+    cursor: pointer;
+    margin-left: 1rem;
+    margin: 0.25rem;
+}
+
+.expense button:hover,
+.expense button:active {
+    background-color: rgb(109, 109, 255);
+    color: white;
+  }
+
+  .editForm input {
+width: 3.6rem;
+  }
+  .editForm button {
+    width: 3.6rem;
+    font-size: small;
+      } 
+      

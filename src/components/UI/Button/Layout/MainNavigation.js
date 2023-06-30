@@ -12,7 +12,7 @@ const MainNavigation = () => {
 
   const history = useHistory();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
- 
+
   const logOutHandler = () => {
     dispatch(authActions.logout());
     history.replace("/auth");
@@ -33,10 +33,12 @@ const MainNavigation = () => {
               <Link to="/expense">Expense Tracker</Link>
             </li>
           )}
+          {isLoggedIn && (
+            <li>
+              <Link to="/welcome">Profile</Link>
+            </li>
+          )}
 
-          <li>
-            <Link to="/products">Products</Link>
-          </li>
           <li>
             <Link to="/aboutus">About us</Link>
           </li>

@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import axios from "axios";
-
+import classes from './ListOfExpenses.module.css';
 const ListOfExpenses = (props) => {
   const [isEditing, setEditing] = useState(false);
   const amountRef = useRef();
@@ -49,14 +49,16 @@ const ListOfExpenses = (props) => {
   };
 
   return (
-    <>
-      <li key={props.id}>
-        {props.description}-{props.category}-{props.amount}
+    
+      <li key={props.id} className={classes.expense}>
+        <div >{props.description}</div>
+        <div>{props.category}</div>
+        <div>{props.amount}</div>
         <button onClick={deleteHandler}>delete</button>
         {!isEditing && <button onClick={EditHandler}>Edit</button>}
         {isEditing && <button onClick={cancelHandler}>Cancel</button>}
         {isEditing && (
-          <form onSubmit={EditOnDatabase}>
+          <form onSubmit={EditOnDatabase} className={classes.editForm}>
             <label htmlFor="amount">Amount</label>
             <input type="number" ref={amountRef} />
             <label htmlFor="description">Description</label>
@@ -72,7 +74,7 @@ const ListOfExpenses = (props) => {
           </form>
         )}
       </li>
-    </>
+    
   );
 };
 

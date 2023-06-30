@@ -5,10 +5,13 @@ import { useDispatch } from "react-redux";
 import { expenseActions } from "../../redux/expense";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import { useEffect } from "react";
+import { themeActions } from "../../redux/theme";
+import classes from './DayToDayExpenses.module.css'
 
 const DayToDayExpenses = () => {
   const [changes, setaChanges] = useState(false);
   const [showPremium, setPremium] = useState(false);
+  const expenses = useSelector((state)=>state.expense.expenses);
 
   const expe = useSelector((state) => state.expense.expenses);
   const isPremium = useSelector((state)=> state.expense.isPremiumSubscribed);
@@ -109,6 +112,24 @@ const DayToDayExpenses = () => {
     dispatch(expenseActions.updatePremiumSubscription());
     
   }
+  
+  const toggleThemeHandler = () => {
+    dispatch(themeActions.changeTheme());
+      }
+    
+      const downloadHandler = () => {
+        function convertToCSV(items) {
+          const headers = ['Amount', 'Description', 'Category'];
+          const rows = expenses.map(item => [item.amount, item.description, item.category]);
+          const csv = [headers, ...rows].map(row => row.join(',')).join('\n');
+          return csv;
+        }
+        const data =convertToCSV();
+        const blob= new Blob([data]);
+        const download =document.getElementById('download');
+        download.href=URL.createObjectURL(blob);
+        
+      }
   const expenseItems = expe.map((exp) => (
     <ListOfExpenses
       key={exp.id}
@@ -122,13 +143,13 @@ const DayToDayExpenses = () => {
 const totalAmount =useSelector((state)=>state.expense.total)
   return (
     <>
-      <form onSubmit={submitHandler}>
+      <form onSubmit={submitHandler} className={classes.form}>
         <h2>Add New Expense</h2>
-        <label htmlFor="amount">Amount</label>
+        <label htmlFor="amount">Amount Rs. :</label>
         <input type="number" ref={amountRef} />
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description">Description :</label>
         <input ref={descRef} />
-        <label htmlFor="category">Category</label>
+        <label htmlFor="category">Category :</label>
         <select name="category" ref={categoryRef}>
           <option value="food">Food</option>
           <option value="rentandutilities">Rent and Utilities</option>
@@ -138,10 +159,24 @@ const totalAmount =useSelector((state)=>state.expense.total)
         <button>Submit</button>
       </form>
       <hr />
-      <h2>List of Expenses</h2>
-      <ul>{expenseItems}</ul>
-      <h1>Total Rs.{totalAmount}</h1>
-      {showPremium && <button onClick={activatePremiumHandler}>Activate Premium </button>}
+      <div className={classes.listOfExpenses}> 
+      <h2 className={classes.header}>List of Expenses</h2>
+      <ul>
+        <li className={classes.listHeader}>
+          <div>Description </div>
+          <div>Category </div>
+          <div>Amount Rs. </div>
+          <div>Delete Expense </div>
+          <div>Edit Expense </div>
+        </li>
+        {expenseItems}</ul>
+      <h1 className={classes.total}>Total Rs.{totalAmount}</h1>
+      </div>
+      <div className={classes.Fbuttons} >
+      {showPremium && <button className={classes.Fbutton} onClick={activatePremiumHandler}>Activate Premium </button>}
+      {isPremium && <button className={classes.Fbutton} onClick={toggleThemeHandler}>Toggle theme</button>}
+      {isPremium && <a id='download' download='file.csv' href='/' > <button className={classes.Fbutton} onClick={downloadHandler}>Download File</button></a>}
+      </div>
     </>
   );
 };

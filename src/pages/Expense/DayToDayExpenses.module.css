@@ -1,0 +1,90 @@
+
+
+
+
+.form {
+  margin: .5rem auto;
+  text-align: center;
+  width: 60rem;
+  padding: 1rem;
+  background: rgb(0, 157, 255);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+  margin-top: -5rem;
+}
+.form label {
+  padding: .5rem;
+}
+.form button {
+    font: inherit;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: white;
+    border: 1px solid white;
+    width: 5rem;
+    height: 2rem;
+    text-align: center;
+    border-radius: 6px;
+    background: rgb(0, 157, 255);
+    cursor: pointer;
+    margin-left: 2rem;
+    /* margin: 0.25rem; */
+}
+
+.form button:hover,
+.form button:active {
+    background-color: rgb(109, 109, 255);
+    color: white;
+  }
+
+.listOfExpenses{
+    margin: 1rem auto;
+  /* text-align: center; */
+  width: 60rem;
+  padding: 1rem;
+  background: rgb(0, 157, 255);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  border-radius: 10px;
+  /* margin-top: -5rem; */
+}
+.header{
+    text-align: center;
+}
+.total {
+    text-align: right;
+}
+
+.Fbuttons{
+    text-align: center;
+}
+
+.Fbutton{
+    font: inherit;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: white;
+    border: 1px solid white;
+    width: 15rem;
+    height: 3rem;
+    text-align: center;
+    border-radius: 6px;
+    background: rgb(0, 157, 255);
+    cursor: pointer;
+    margin-left: 1rem;
+    margin: 0.25rem;
+}
+
+.Fbutton button:hover,
+.Fbutton button:active {
+    background-color: rgb(109, 109, 255);
+    color: white;
+  }
+
+  .listHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: .1px solid wheat;
+    padding: .4rem ;
+  }
+
