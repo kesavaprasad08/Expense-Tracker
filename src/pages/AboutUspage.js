@@ -1,6 +1,6 @@
 const AboutUsPage = () => {
     return<>
-    <h1>About Page</h1>
+    <h1 style={{textAlign:'center'}}>Developed By Kesava Prasad</h1>
     </>
 }
 
